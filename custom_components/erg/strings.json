@@ -1,0 +1,42 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Erg Scheduler",
+        "description": "Enter the connection details for your Erg energy scheduler server.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "use_ssl": "Use SSL",
+          "api_token": "API Token (optional)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Erg server. Check the host and port.",
+      "invalid_auth": "Authentication failed. Check your API token."
+    },
+    "abort": {
+      "already_configured": "This Erg server is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Erg Scheduler Settings",
+        "data": {
+          "grid_import_limit": "Grid import limit (kW)",
+          "grid_export_limit": "Grid export limit (kW)",
+          "inverter_power": "Inverter power (kW)",
+          "battery_capacity": "Battery capacity (kWh)",
+          "battery_storage_value": "Battery storage value ($/kWh)",
+          "battery_soc_entity": "Battery SoC entity",
+          "solar_forecast_provider": "Solar forecast provider",
+          "update_interval": "Update interval (minutes)",
+          "horizon_hours": "Scheduling horizon (hours)",
+          "slot_duration": "Slot duration (e.g. 5m)"
+        }
+      }
+    }
+  }
+}
