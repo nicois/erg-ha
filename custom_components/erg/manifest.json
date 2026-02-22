@@ -1,9 +1,12 @@
 {
   "domain": "erg",
   "name": "Erg Energy Scheduler",
-  "codeowners": [],
+  "codeowners": [
+    "@nicois"
+  ],
   "config_flow": true,
-  "documentation": "",
+  "documentation": "https://github.com/nicois/erg-ha/README.md",
+  "issue_tracker": "https://github.com/nicois/erg-ha/issues",
   "integration_type": "service",
   "iot_class": "local_polling",
   "requirements": [],
