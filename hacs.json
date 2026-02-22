@@ -1,0 +1,5 @@
+{
+  "name": "Erg energy scheduler",
+  "homeassistant": "2026.1.1",
+  "hacs": "2.0.5"
+}

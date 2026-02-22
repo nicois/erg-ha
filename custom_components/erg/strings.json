@@ -1,0 +1,160 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Erg Scheduler",
+        "description": "Enter the connection details for your Erg energy scheduler server.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "use_ssl": "Use SSL",
+          "api_token": "API Token (optional)"
+        }
+      },
+      "auth_method": {
+        "title": "Authentication Method",
+        "description": "The server supports sign-in. Choose how to authenticate.",
+        "data": {
+          "auth_method": "Authentication method"
+        }
+      },
+      "oidc_login": {
+        "title": "Sign In",
+        "description": "Complete the sign-in process in the browser window that opened."
+      },
+      "oidc_done": {
+        "title": "Authentication Complete",
+        "description": "You have been successfully authenticated."
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate",
+        "description": "Your session has expired. Please re-authenticate.",
+        "data": {
+          "auth_method": "Authentication method",
+          "api_token": "API Token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Erg server. Check the host and port.",
+      "invalid_auth": "Authentication failed. Check your API token."
+    },
+    "abort": {
+      "already_configured": "This Erg server is already configured.",
+      "oidc_flow_failed": "The sign-in process failed. Please try again.",
+      "oidc_flow_expired": "The sign-in session expired. Please try again.",
+      "oidc_flow_timeout": "The sign-in process timed out. Please try again.",
+      "reauth_successful": "Re-authentication was successful."
+    },
+    "subentries": {
+      "job": {
+        "initiate_flow": {
+          "user": "Add job",
+          "description": "Create a new scheduled job."
+        },
+        "step": {
+          "user": {
+            "title": "Job Details",
+            "description": "Enter the basic details for this scheduled job.",
+            "data": {
+              "entity_id": "Entity ID",
+              "job_type": "Job type",
+              "ac_power": "AC power (kW)",
+              "dc_power": "DC power (kW)",
+              "force": "Force scheduling",
+              "benefit": "Benefit ($/run)",
+              "enabled": "Enabled"
+            }
+          },
+          "recurring": {
+            "title": "Recurring Schedule",
+            "description": "Configure the recurring schedule for this job.",
+            "data": {
+              "frequency": "Frequency",
+              "time_window_start": "Time window start (HH:MM)",
+              "time_window_end": "Time window end (HH:MM)",
+              "maximum_duration": "Maximum duration (e.g. 1h, 30m)",
+              "minimum_duration": "Minimum duration",
+              "minimum_burst": "Minimum burst",
+              "day_of_week": "Day of week",
+              "days_of_week_str": "Days of week (comma-separated: 0=Mon..6=Sun)"
+            }
+          },
+          "oneshot": {
+            "title": "One-Shot Schedule",
+            "description": "Configure the one-shot schedule for this job.",
+            "data": {
+              "start": "Start time",
+              "finish": "Finish time",
+              "maximum_duration": "Maximum duration (e.g. 1h, 30m)",
+              "minimum_duration": "Minimum duration",
+              "minimum_burst": "Minimum burst"
+            }
+          }
+        },
+        "error": {
+          "already_exists": "A job with this entity ID already exists.",
+          "invalid_time": "Invalid time. Use HH:MM format.",
+          "invalid_duration": "Invalid duration. Use h/m/s components."
+        },
+        "abort": {
+          "config_entry_not_loaded": "The integration must be loaded before adding jobs.",
+          "already_configured": "A job for this entity already exists."
+        }
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "set_force": "Set force scheduling for {entity_name}",
+      "set_enabled": "Set enabled state for {entity_name}",
+      "set_benefit": "Set benefit value for {entity_name}",
+      "set_ac_power": "Set AC power for {entity_name}",
+      "set_dc_power": "Set DC power for {entity_name}",
+      "set_maximum_duration": "Set maximum duration for {entity_name}",
+      "set_minimum_duration": "Set minimum duration for {entity_name}",
+      "set_minimum_burst": "Set minimum burst for {entity_name}",
+      "set_time_window": "Set time window for {entity_name}"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Erg Scheduler Settings",
+        "data": {
+          "grid_import_limit": "Grid import limit (kW)",
+          "grid_export_limit": "Grid export limit (kW)",
+          "inverter_power": "Inverter power (kW)",
+          "battery_capacity": "Battery capacity (kWh)",
+          "battery_storage_value": "Battery storage value ($/kWh)",
+          "battery_preservation": "Battery preservation cost ($/kWh)",
+          "battery_soc_entity": "Battery SoC entity",
+          "solar_forecast_provider": "Solar forecast provider",
+          "update_interval": "Update interval (minutes)",
+          "horizon_hours": "Scheduling horizon (hours)",
+          "slot_duration": "Slot duration (e.g. 5m)"
+        }
+      },
+      "tariffs_menu": {
+        "title": "Manage Tariffs",
+        "data": {
+          "action": "Action"
+        }
+      },
+      "import_tariffs_yaml": {
+        "title": "Import Tariffs from YAML",
+        "description": "Paste your tariff periods as YAML. This will replace all existing tariffs.\n\nExpected format:\n```\nperiods:\n  - start: \"00:00\"\n    end: \"07:00\"\n    import_price: 0.12\n    feed_in_price: 0.05\n```",
+        "data": {
+          "tariffs_yaml": "Tariff YAML"
+        }
+      }
+    },
+    "error": {
+      "invalid_time": "Invalid time. Use HH:MM format, e.g. 09:00, 17:30.",
+      "invalid_duration": "Invalid duration. Use h/m/s components, e.g. 1h, 30m, 1h30m.",
+      "invalid_yaml": "Invalid YAML. Check the format and try again.",
+      "invalid_yaml_time": "Invalid time in YAML. Times must use HH:MM format (e.g. 09:00, 17:30).",
+      "invalid_yaml_price": "Invalid price in YAML. Prices must be non-negative numbers."
+    }
+  }
+}

@@ -1,0 +1,251 @@
+create_job:
+  name: Create Job
+  description: Create a new Erg energy scheduling job entity.
+  fields:
+    entity_id:
+      name: Entity ID
+      description: The Home Assistant entity ID this job controls (e.g. switch.pool_pump).
+      required: true
+      example: "switch.pool_pump"
+      selector:
+        text:
+    job_type:
+      name: Job Type
+      description: Whether this is a recurring or one-shot job.
+      required: true
+      example: "recurring"
+      selector:
+        select:
+          options:
+            - "recurring"
+            - "oneshot"
+    ac_power:
+      name: AC Power
+      description: AC power consumption in kW.
+      default: 0.0
+      example: 1.5
+      selector:
+        number:
+          min: 0
+          step: 0.1
+          unit_of_measurement: kW
+    dc_power:
+      name: DC Power
+      description: DC power consumption in kW.
+      default: 0.0
+      example: 0.0
+      selector:
+        number:
+          min: 0
+          step: 0.1
+          unit_of_measurement: kW
+    force:
+      name: Force
+      description: Whether this job must be scheduled regardless of cost.
+      default: false
+      selector:
+        boolean:
+    benefit:
+      name: Benefit
+      description: Economic benefit value for running this job.
+      default: 0.0
+      example: 10.0
+      selector:
+        number:
+          min: 0
+          step: 0.01
+    enabled:
+      name: Enabled
+      description: Whether this job is enabled.
+      default: true
+      selector:
+        boolean:
+    frequency:
+      name: Frequency
+      description: "Recurrence frequency (recurring jobs only): daily, weekdays, weekends, weekly, custom."
+      default: "daily"
+      example: "daily"
+      selector:
+        select:
+          options:
+            - "daily"
+            - "weekdays"
+            - "weekends"
+            - "weekly"
+            - "custom"
+    time_window_start:
+      name: Time Window Start
+      description: Start of the scheduling window (HH:MM, recurring jobs only).
+      default: "09:00"
+      example: "09:00"
+      selector:
+        text:
+    time_window_end:
+      name: Time Window End
+      description: End of the scheduling window (HH:MM, recurring jobs only).
+      default: "17:00"
+      example: "17:00"
+      selector:
+        text:
+    maximum_duration:
+      name: Maximum Duration
+      description: Maximum run duration (Go-style, e.g. 1h30m).
+      default: "1h"
+      example: "3h"
+      selector:
+        text:
+    minimum_duration:
+      name: Minimum Duration
+      description: Minimum total run duration (Go-style).
+      default: "0s"
+      example: "1h"
+      selector:
+        text:
+    minimum_burst:
+      name: Minimum Burst
+      description: Minimum contiguous run duration (Go-style).
+      default: "0s"
+      example: "30m"
+      selector:
+        text:
+    day_of_week:
+      name: Day of Week
+      description: Day of week for weekly frequency (0=Monday, 6=Sunday).
+      example: 0
+      selector:
+        number:
+          min: 0
+          max: 6
+    days_of_week:
+      name: Days of Week
+      description: List of day numbers for custom frequency.
+      example: "[0, 2, 4]"
+      selector:
+        object:
+    start:
+      name: Start
+      description: Start datetime for one-shot jobs (ISO 8601).
+      example: "2026-02-16T14:00:00+10:00"
+      selector:
+        text:
+    finish:
+      name: Finish
+      description: Finish datetime for one-shot jobs (ISO 8601).
+      example: "2026-02-16T18:00:00+10:00"
+      selector:
+        text:
+
+update_job:
+  name: Update Job
+  description: Update attributes of an existing Erg job entity.
+  fields:
+    job_entity_id:
+      name: Job Entity ID
+      description: The entity_id of the job to update (the value in the job's entity_id attribute).
+      required: true
+      example: "switch.pool_pump"
+      selector:
+        text:
+    ac_power:
+      name: AC Power
+      description: AC power consumption in kW.
+      selector:
+        number:
+          min: 0
+          step: 0.1
+          unit_of_measurement: kW
+    dc_power:
+      name: DC Power
+      description: DC power consumption in kW.
+      selector:
+        number:
+          min: 0
+          step: 0.1
+          unit_of_measurement: kW
+    force:
+      name: Force
+      description: Whether this job must be scheduled regardless of cost.
+      selector:
+        boolean:
+    benefit:
+      name: Benefit
+      description: Economic benefit value for running this job.
+      selector:
+        number:
+          min: 0
+          step: 0.01
+    enabled:
+      name: Enabled
+      description: Whether this job is enabled.
+      selector:
+        boolean:
+    frequency:
+      name: Frequency
+      description: Recurrence frequency.
+      selector:
+        select:
+          options:
+            - "daily"
+            - "weekdays"
+            - "weekends"
+            - "weekly"
+            - "custom"
+    time_window_start:
+      name: Time Window Start
+      description: Start of the scheduling window (HH:MM).
+      selector:
+        text:
+    time_window_end:
+      name: Time Window End
+      description: End of the scheduling window (HH:MM).
+      selector:
+        text:
+    maximum_duration:
+      name: Maximum Duration
+      description: Maximum run duration.
+      selector:
+        text:
+    minimum_duration:
+      name: Minimum Duration
+      description: Minimum total run duration.
+      selector:
+        text:
+    minimum_burst:
+      name: Minimum Burst
+      description: Minimum contiguous run duration.
+      selector:
+        text:
+    day_of_week:
+      name: Day of Week
+      description: Day of week for weekly frequency.
+      selector:
+        number:
+          min: 0
+          max: 6
+    days_of_week:
+      name: Days of Week
+      description: List of day numbers for custom frequency.
+      selector:
+        object:
+    start:
+      name: Start
+      description: Start datetime for one-shot jobs (ISO 8601).
+      selector:
+        text:
+    finish:
+      name: Finish
+      description: Finish datetime for one-shot jobs (ISO 8601).
+      selector:
+        text:
+
+delete_job:
+  name: Delete Job
+  description: Delete an Erg job entity and its associated sensors.
+  fields:
+    job_entity_id:
+      name: Job Entity ID
+      description: The entity_id of the job to delete (the value in the job's entity_id attribute).
+      required: true
+      example: "switch.pool_pump"
+      selector:
+        text:
