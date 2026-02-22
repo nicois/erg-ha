@@ -1,0 +1,221 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Erg Scheduler",
+        "description": "Enter the connection details for your Erg energy scheduler server.",
+        "data": {
+          "host": "Host",
+          "port": "Port",
+          "use_ssl": "Use SSL",
+          "api_token": "API Token (optional)"
+        }
+      },
+      "auth_method": {
+        "title": "Authentication Method",
+        "description": "The server supports sign-in. Choose how to authenticate.",
+        "data": {
+          "auth_method": "Authentication method"
+        }
+      },
+      "oidc_login": {
+        "title": "Sign In",
+        "description": "Complete the sign-in process in the browser window that opened."
+      },
+      "oidc_done": {
+        "title": "Authentication Complete",
+        "description": "You have been successfully authenticated."
+      },
+      "reauth_confirm": {
+        "title": "Re-authenticate",
+        "description": "Your session has expired. Please re-authenticate.",
+        "data": {
+          "auth_method": "Authentication method",
+          "api_token": "API Token"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the Erg server. Check the host and port.",
+      "invalid_auth": "Authentication failed. Check your API token."
+    },
+    "abort": {
+      "already_configured": "This Erg server is already configured.",
+      "oidc_flow_failed": "The sign-in process failed. Please try again.",
+      "oidc_flow_expired": "The sign-in session expired. Please try again.",
+      "oidc_flow_timeout": "The sign-in process timed out. Please try again.",
+      "reauth_successful": "Re-authentication was successful.",
+      "api_key_created": "Authentication successful. A long-lived API key has been created."
+    }
+  },
+  "config_subentries": {
+    "job": {
+      "initiate_flow": {
+        "user": "Add job",
+        "description": "Create a new scheduled job."
+      },
+      "step": {
+        "user": {
+          "title": "Job Details",
+          "description": "Enter the basic details for this scheduled job.",
+          "data": {
+            "entity_id": "Entity ID",
+            "job_type": "Job type",
+            "ac_power": "AC power (kW)",
+            "min_ac_power": "Minimum AC power (kW, for variable-power loads)",
+            "dc_power": "DC power (kW)",
+            "force": "Force scheduling",
+            "benefit": "Benefit ($/run)",
+            "target_energy": "Target energy delivery (kWh, 0 = fixed power)",
+            "min_energy": "Minimum energy (kWh, high-value portion)",
+            "low_benefit": "Low benefit ($/run, for energy above minimum)",
+            "depends_on": "Depends on (entity ID, optional)",
+            "enabled": "Enabled"
+          },
+          "data_description": {
+            "entity_id": "The Home Assistant entity this job controls.",
+            "ac_power": "AC power draw when active (kW). Positive = consumption.",
+            "min_ac_power": "Minimum AC power when active (kW). Only used with target energy > 0.",
+            "dc_power": "DC power (kW). For solar panels or DC-coupled devices.",
+            "force": "When enabled, this job runs for its full duration regardless of energy cost.",
+            "benefit": "Economic value of running this job for its full duration ($/run).",
+            "target_energy": "Total energy to deliver (kWh). Set to 0 for fixed-power devices. Set > 0 for variable-power loads like EV chargers.",
+            "min_energy": "High-priority energy portion (kWh). The solver prioritises this amount. Leave 0 if all energy is equally important.",
+            "low_benefit": "Benefit for energy above the minimum ($/run). Set lower than benefit to make the top-up optional.",
+            "depends_on": "Entity ID of a job that must finish before this one starts. Leave empty for no dependency.",
+            "enabled": "Whether this job is included in scheduling."
+          }
+        },
+        "recurring": {
+          "title": "Recurring Schedule",
+          "description": "Configure the recurring schedule for this job.",
+          "data": {
+            "frequency": "Frequency",
+            "time_window_start": "Time window start (HH:MM)",
+            "time_window_end": "Time window end (HH:MM)",
+            "maximum_duration": "Maximum duration (e.g. 1h, 30m)",
+            "minimum_duration": "Minimum duration",
+            "minimum_burst": "Minimum burst",
+            "day_of_week": "Day of week",
+            "days_of_week_str": "Days of week (comma-separated: 0=Mon..6=Sun)"
+          }
+        },
+        "oneshot": {
+          "title": "One-Shot Schedule",
+          "description": "Configure the one-shot schedule for this job.",
+          "data": {
+            "start": "Start time",
+            "finish": "Finish time",
+            "maximum_duration": "Maximum duration (e.g. 1h, 30m)",
+            "minimum_duration": "Minimum duration",
+            "minimum_burst": "Minimum burst"
+          }
+        }
+      },
+      "error": {
+        "already_exists": "A job with this entity ID already exists.",
+        "invalid_time": "Invalid time. Use HH:MM format.",
+        "invalid_duration": "Invalid duration. Use h/m/s components."
+      },
+      "abort": {
+        "config_entry_not_loaded": "The integration must be loaded before adding jobs.",
+        "already_configured": "A job for this entity already exists."
+      }
+    }
+  },
+  "device_automation": {
+    "action_type": {
+      "set_force": "Set must-run scheduling for {entity_name}",
+      "set_enabled": "Set enabled state for {entity_name}",
+      "set_benefit": "Set benefit value for {entity_name}",
+      "set_ac_power": "Set AC power for {entity_name}",
+      "set_dc_power": "Set DC power for {entity_name}",
+      "set_maximum_duration": "Set maximum duration for {entity_name}",
+      "set_minimum_duration": "Set minimum duration for {entity_name}",
+      "set_minimum_burst": "Set minimum burst for {entity_name}",
+      "set_time_window": "Set time window for {entity_name}",
+      "set_ev_charging": "Set EV charging parameters for {entity_name}"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Grid & Battery",
+        "data": {
+          "grid_import_limit": "Grid import limit (kW)",
+          "grid_export_limit": "Grid export limit (kW)",
+          "inverter_power": "Inverter power (kW)",
+          "battery_capacity": "Battery capacity (kWh)",
+          "battery_soc_entity": "Battery SoC entity",
+          "battery_efficiency": "Battery efficiency (0-1)",
+          "solar_forecast_provider": "Solar forecast provider"
+        },
+        "data_description": {
+          "grid_import_limit": "Maximum power the home can draw from the grid (kW).",
+          "grid_export_limit": "Maximum power the home can export to the grid (kW).",
+          "inverter_power": "Maximum AC power the battery inverter can produce or consume (kW).",
+          "battery_capacity": "Total usable battery capacity (kWh). Set to 0 if no battery.",
+          "battery_soc_entity": "Sensor that reports the current battery state of charge.",
+          "battery_efficiency": "Round-trip battery efficiency (0-1). 0.9 means 10% loss per cycle.",
+          "solar_forecast_provider": "How to obtain solar forecasts. Auto-discover finds Forecast.Solar or Solcast."
+        }
+      },
+      "scheduling": {
+        "title": "Scheduling",
+        "data": {
+          "tariff_source": "Tariff source",
+          "aemo_region": "AEMO NEM region",
+          "slot_duration": "Slot duration",
+          "horizon_hours": "Scheduling horizon (hours)",
+          "extend_to_end_of_day": "Extend to end of day",
+          "update_interval": "Update interval (minutes)"
+        },
+        "data_description": {
+          "tariff_source": "Where to get electricity prices. Manual uses the tariff periods you configure. AEMO fetches live wholesale prices.",
+          "aemo_region": "Australian NEM region for wholesale prices. Only used when tariff source is AEMO.",
+          "slot_duration": "Length of each scheduling time slot. Smaller slots give finer control but slower solves.",
+          "horizon_hours": "How far ahead to schedule (hours).",
+          "extend_to_end_of_day": "Extend the scheduling horizon to midnight, ensuring full-day coverage.",
+          "update_interval": "How often to re-solve the schedule (minutes)."
+        }
+      },
+      "advanced": {
+        "title": "Advanced",
+        "data": {
+          "battery_storage_value": "Battery storage value ($/kWh)",
+          "battery_preservation": "Battery preservation cost ($/kWh)",
+          "preservation_lower_bound": "Preservation lower bound (0-1)",
+          "preservation_upper_bound": "Preservation upper bound (0-1)",
+          "solar_confidence": "Solar forecast confidence (0-1)"
+        },
+        "data_description": {
+          "battery_storage_value": "Value assigned to each kWh remaining at end of horizon. Higher values retain more charge ($/kWh).",
+          "battery_preservation": "Penalty for operating outside the preferred charge band ($/kWh). Set to 0 to disable.",
+          "preservation_lower_bound": "Minimum preferred charge level (0.3 = 30%). LFP batteries can use 0.1.",
+          "preservation_upper_bound": "Maximum preferred charge level (0.8 = 80%). LFP batteries can use 0.95.",
+          "solar_confidence": "Derating factor for solar forecast (0-1). 0.8 means plan for 80% of forecasted solar."
+        }
+      },
+      "tariffs_menu": {
+        "title": "Manage Tariffs",
+        "data": {
+          "action": "Action"
+        }
+      },
+      "import_tariffs_yaml": {
+        "title": "Import Tariffs from YAML",
+        "description": "Paste your tariff periods as YAML. This will replace all existing tariffs.\n\nExpected format:\n```\nperiods:\n  - start: \"00:00\"\n    end: \"07:00\"\n    import_price: 0.12\n    feed_in_price: 0.05\n```",
+        "data": {
+          "tariffs_yaml": "Tariff YAML"
+        }
+      }
+    },
+    "error": {
+      "invalid_time": "Invalid time. Use HH:MM format, e.g. 09:00, 17:30.",
+      "invalid_duration": "Invalid duration. Use h/m/s components, e.g. 1h, 30m, 1h30m.",
+      "invalid_yaml": "Invalid YAML. Check the format and try again.",
+      "invalid_yaml_time": "Invalid time in YAML. Times must use HH:MM format (e.g. 09:00, 17:30).",
+      "invalid_yaml_price": "Invalid price in YAML. Prices must be non-negative numbers."
+    }
+  }
+}
