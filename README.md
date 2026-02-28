@@ -7,7 +7,6 @@ A Home Assistant integration that optimises the scheduling of controllable energ
 Erg takes your electricity tariffs, solar forecast, battery state, and a set of jobs with time constraints, then finds the cheapest times to run everything. It provides controls you can use in your automations to implement the schedule. Once a schedule has been generated, you can also directly <a href="https://erg.297108.xyz/api/v1/schedule/view">view</a> the current schedule:
 <img width="1097" height="1181" alt="image" src="https://github.com/user-attachments/assets/20fb9eab-6eb3-41bc-b89a-d4dd0e0eee93" />
 
-
 ## Philosophy
 
 Erg intentionally does not analyse your energy usage to infer your habits, but is instead driven by what you tell it. Based on tariff information, solar production, plus a combination of optional and forced "jobs", Erg
@@ -70,14 +69,14 @@ After setup, configure the integration via **Settings > Devices & Services > Erg
 
 Add one or more electricity tariff periods. Each period defines the import price (what you pay) and feed-in price (what you earn for export) during a recurring time window.
 
-| Field                 | Description                                                                                      |
-| --------------------- | ------------------------------------------------------------------------------------------------ |
-| Name                  | A label for this period (e.g. "Peak", "Off-peak", "Shoulder").                                   |
-| Frequency             | When this tariff applies: daily, weekdays, weekends, a specific day of the week, or custom days. |
-| Time window start     | Start time in HH:MM format.                                                                      |
-| Time window end       | End time in HH:MM format. Overnight windows (e.g. 22:00 to 06:00) are supported.                 |
-| Import price ($/kWh)  | Cost to import power during this period.                                                         |
-| Feed-in price ($/kWh) | Payment received for exporting power during this period.                                         |
+| Field                 | Description                                                                                                       |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Name                  | A label for this period (e.g. "Peak", "Off-peak", "Shoulder").                                                    |
+| Frequency             | When this tariff applies: daily, weekdays, weekends, a specific day of the week, or custom days.                  |
+| Time window start     | Start time in HH:MM format.                                                                                       |
+| Time window end       | End time in HH:MM format. Overnight windows (e.g. 22:00 to 06:00) are supported.                                  |
+| Import price ($/kWh)  | Cost to import power during this period. Negative prices imply you are paid to import.                            |
+| Feed-in price ($/kWh) | Payment received for exporting power during this period. Negative prices imply you will lose money if you feed in |
 
 #### Importing tariffs from YAML
 
@@ -87,7 +86,7 @@ Instead of adding each tariff period one at a time, you can bulk-import them fro
 periods:
   - start: "00:00"
     name: "Morning"
-    end: "11:00"
+    end: "10:00"
     import_price: 0.2695
     feed_in_price: 0.003
   - start: "10:00"
@@ -99,7 +98,7 @@ periods:
     name: "Midday"
     end: "14:00"
     import_price: 0
-    feed_in_price: 0
+    feed_in_price: -0.1
   - start: "14:00"
     name: "Mid afternoon"
     end: "16:00"

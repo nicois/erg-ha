@@ -890,9 +890,6 @@ def _parse_tariff_yaml(
         except (TypeError, ValueError):
             return [], "invalid_yaml_price"
 
-        if import_price < 0 or feed_in_price < 0:
-            return [], "invalid_yaml_price"
-
         name = str(p.get("name", "")).strip()
         if not name:
             name = f"Tariff {i + 1} ({start}-{end})"

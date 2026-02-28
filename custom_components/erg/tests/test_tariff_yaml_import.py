@@ -117,7 +117,7 @@ periods:
         assert tariffs == []
         assert error == "invalid_yaml_time"
 
-    def test_negative_price(self):
+    def test_negative_import_price(self):
         yaml_text = """
 periods:
   - start: "00:00"
@@ -126,8 +126,24 @@ periods:
     feed_in_price: 0.05
 """
         tariffs, error = _parse_tariff_yaml(yaml_text)
-        assert tariffs == []
-        assert error == "invalid_yaml_price"
+        assert error is None
+        assert len(tariffs) == 1
+        assert tariffs[0]["import_price"] == -0.10
+        assert tariffs[0]["feed_in_price"] == 0.05
+
+    def test_negative_feed_in_price(self):
+        yaml_text = """
+periods:
+  - start: "00:00"
+    end: "12:00"
+    import_price: 0.30
+    feed_in_price: -0.05
+"""
+        tariffs, error = _parse_tariff_yaml(yaml_text)
+        assert error is None
+        assert len(tariffs) == 1
+        assert tariffs[0]["import_price"] == 0.30
+        assert tariffs[0]["feed_in_price"] == -0.05
 
     def test_non_numeric_price(self):
         yaml_text = """
