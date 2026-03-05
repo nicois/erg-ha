@@ -541,19 +541,19 @@ class ErgOptionsFlow(OptionsFlow):
                     ): vol.Coerce(float),
                     vol.Optional(
                         "battery_preservation",
-                        default=opts.get("battery_preservation", 0.03),
+                        default=opts.get("battery_preservation", 0.1),
                     ): vol.Coerce(float),
                     vol.Optional(
                         "preservation_lower_bound",
-                        default=opts.get("preservation_lower_bound", 0.3),
+                        default=opts.get("preservation_lower_bound", 0.1),
                     ): vol.All(vol.Coerce(float), vol.Range(min=0, max=1)),
                     vol.Optional(
                         "preservation_upper_bound",
-                        default=opts.get("preservation_upper_bound", 0.8),
+                        default=opts.get("preservation_upper_bound", 1.0),
                     ): vol.All(vol.Coerce(float), vol.Range(min=0, max=1)),
                     vol.Optional(
                         "solar_confidence",
-                        default=opts.get("solar_confidence", 1.0),
+                        default=opts.get("solar_confidence", 0.8),
                     ): vol.Coerce(float),
                 }
             ),
