@@ -1,0 +1,25 @@
+{
+  "assignments": [
+    {
+      "entity": "input_boolean.pool_pump",
+      "slots": ["__NOW__", "__NOW+15m__", "__NOW+30m__"],
+      "run_time_seconds": 2700,
+      "energy_cost": 0.15,
+      "ac_power": 1.5,
+      "benefit": 0.5,
+      "energy_delivered": 0.75
+    }
+  ],
+  "battery_profile": [
+    {"time": "__NOW-15m__", "soc_kwh": 31.5, "grid_import": 0.0, "grid_export": 0.5},
+    {"time": "__NOW__", "soc_kwh": 32.0, "grid_import": 0.0, "grid_export": 0.3},
+    {"time": "__NOW+15m__", "soc_kwh": 32.5, "grid_import": 0.0, "grid_export": 0.1},
+    {"time": "__NOW+30m__", "soc_kwh": 33.0, "grid_import": 0.0, "grid_export": 0.0}
+  ],
+  "total_cost": 0.15,
+  "total_benefit": 0.50,
+  "export_revenue": 0.10,
+  "net_value": -0.05,
+  "import_price_threshold": 0.25,
+  "export_price_threshold": 0.08
+}

@@ -1,0 +1,22 @@
+{
+  "periods": [
+    {
+      "start": "__NOW__",
+      "end": "__NOW+30m__",
+      "import_price": 0.08,
+      "feed_in_price": 0.05
+    },
+    {
+      "start": "__NOW+30m__",
+      "end": "__NOW+60m__",
+      "import_price": 0.12,
+      "feed_in_price": 0.04
+    },
+    {
+      "start": "__NOW+60m__",
+      "end": "__NOW+90m__",
+      "import_price": 0.35,
+      "feed_in_price": 0.03
+    }
+  ]
+}

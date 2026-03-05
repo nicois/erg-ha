@@ -1,0 +1,24 @@
+homeassistant:
+  name: E2E Test
+  unit_system: metric
+  time_zone: Australia/Sydney
+  currency: AUD
+
+input_boolean:
+  pool_pump:
+    name: Pool Pump
+  ev_charger:
+    name: EV Charger
+  water_heater:
+    name: Water Heater
+
+template:
+  - sensor:
+      - name: Battery SoC
+        unit_of_measurement: "%"
+        state: "75"
+
+logger:
+  default: info
+  logs:
+    custom_components.erg: debug

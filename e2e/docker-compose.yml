@@ -1,0 +1,39 @@
+services:
+  mock-backend:
+    image: python:3.12-slim
+    working_dir: /app
+    command: python -m mock_backend.server
+    volumes:
+      - ./mock_backend:/app/mock_backend:ro
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - PYTHONUNBUFFERED=1
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/api/v1/health')"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    networks:
+      - erg-e2e
+
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:2025.3
+    ports:
+      - "8123:8123"
+    volumes:
+      - ../custom_components/erg:/config/custom_components/erg:ro
+      - ./configuration.yaml:/config/configuration.yaml:ro
+    environment:
+      - TZ=Australia/Sydney
+    depends_on:
+      mock-backend:
+        condition: service_healthy
+    networks:
+      - erg-e2e
+
+networks:
+  erg-e2e:
+    driver: bridge
