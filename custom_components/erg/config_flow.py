@@ -175,8 +175,10 @@ class ErgConfigFlow(ConfigFlow, domain=DOMAIN):
             return await self._start_oidc_flow(method)
 
         choices: dict[str, str] = {"token_only": "Bearer token only"}
+        default_choice :str = "token_only"
         for provider in self._providers:
             name = provider.get("name", "")
+            default_choice = name
             display = provider.get("display_name", name)
             choices[name] = f"Sign in with {display}"
 
@@ -184,7 +186,7 @@ class ErgConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="auth_method",
             data_schema=vol.Schema(
                 {
-                    vol.Required("auth_method", default="token_only"): vol.In(
+                    vol.Required("auth_method", default=default_choice): vol.In(
                         choices
                     )
                 }
